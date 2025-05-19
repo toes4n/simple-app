@@ -15,13 +15,13 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # This is crucial for writing to the repository
+      contents: write
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0  # Fetch all history for proper versioning
+        fetch-depth: 0
     
     - name: Get current version
       id: version
@@ -32,9 +32,27 @@ jobs:
         else
           current_version="1.0.0"
           echo "No version file found. Starting with version: $current_version"
-          echo "$current_version" > "${{ env.VERSION_FILE }}"
         fi
+        
+        # Store current version for reference
         echo "current_version=$current_version" >> $GITHUB_OUTPUT
+        
+        # Increment version BEFORE building the image
+        IFS='.' read -r major minor patch <<< "$current_version"
+        new_patch=$((patch + 1))
+        new_version="$major.$minor.$new_patch"
+        echo "New version: $new_version"
+        
+        # Update version file with new version
+        echo "$new_version" > "${{ env.VERSION_FILE }}"
+        echo "new_version=$new_version" >> $GITHUB_OUTPUT
+    
+    - name: Commit version update
+      if: github.event_name == 'push'
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "Bump version to ${{ steps.version.outputs.new_version }}"
+        file_pattern: "${{ env.VERSION_FILE }}"
     
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -47,82 +65,9 @@ jobs:
     
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
-      id: build_push
       with:
         context: .
         push: true
         tags: |
-          ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:${{ steps.version.outputs.current_version }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:${{ steps.version.outputs.new_version }}
           ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:latest
-    
-    - name: Increment version on successful build
-      if: success()
-      id: increment_version
-      run: |
-        # Parse current version
-        current_version="${{ steps.version.outputs.current_version }}"
-        IFS='.' read -r major minor patch <<< "$current_version"
-        
-        # Increment patch version
-        new_patch=$((patch + 1))
-        new_version="$major.$minor.$new_patch"
-        
-        echo "New version: $new_version"
-        echo "$new_version" > "${{ env.VERSION_FILE }}"
-        echo "new_version=$new_version" >> $GITHUB_OUTPUT
-    
-    - name: Commit and push version update
-      if: success() && github.event_name == 'push'
-      uses: actions/github-script@v6
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const fs = require('fs');
-          const { repo, owner } = context.repo;
-          
-          // Get the current branch name
-          const branch = context.ref.replace('refs/heads/', '');
-          
-          // Get the new version
-          const newVersion = '${{ steps.increment_version.outputs.new_version }}';
-          
-          // Get the current commit SHA
-          const currentSha = context.sha;
-          
-          // Read the version file content
-          const versionContent = fs.readFileSync('${{ env.VERSION_FILE }}', 'utf8');
-          
-          // Create or update the file in the repository
-          await github.rest.repos.createOrUpdateFileContents({
-            owner,
-            repo,
-            path: '${{ env.VERSION_FILE }}',
-            message: `Bump version to ${newVersion}`,
-            content: Buffer.from(versionContent).toString('base64'),
-            branch,
-            committer: {
-              name: 'GitHub Actions',
-              email: 'actions@github.com'
-            },
-            author: {
-              name: 'GitHub Actions',
-              email: 'actions@github.com'
-            },
-            sha: await getFileSha(github, owner, repo, '${{ env.VERSION_FILE }}', branch)
-          });
-          
-          // Helper function to get file SHA (needed for updating existing files)
-          async function getFileSha(github, owner, repo, path, branch) {
-            try {
-              const { data } = await github.rest.repos.getContent({
-                owner,
-                repo,
-                path,
-                ref: branch
-              });
-              return data.sha;
-            } catch (error) {
-              // File doesn't exist yet
-              return null;
-            }
-          }
