@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: toes4n/my-flask-app:1.0.36
+          image: toes4n/my-flask-app:1.0.37
           ports:
             - containerPort: 5000
 
