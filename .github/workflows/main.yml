@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: 
       - main
-
+      
 env:
   VERSION_FILE: version.txt
 
