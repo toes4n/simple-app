@@ -82,6 +82,7 @@ jobs:
           ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:${{ steps.version.outputs.new_version }}
           ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:latest
           ghcr.io/${{ github.actor }}/my-flask-app:${{ steps.version.outputs.new_version }}
+          ghcr.io/${{ github.actor }}/my-demo-app:${{ steps.version.outputs.new_version }}
      
 
     - name: Update Kubernetes deployment image tag
