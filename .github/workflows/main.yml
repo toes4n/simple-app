@@ -83,7 +83,6 @@ jobs:
           ghcr.io/${{ github.repository_owner }}/my-flask-app:${{ steps.version.outputs.new_version }}
           ghcr.io/${{ github.repository_owner }}/my-flask-app:latest
 
-
     - name: Update Kubernetes deployment image tag
       run: |
         sed -i "s|\(image: .*/my-flask-app:\).*|\1${{ steps.version.outputs.new_version }}|" kubernetes/deployment.yaml
