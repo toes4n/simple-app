@@ -68,7 +68,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.GIT_DEV }}
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
@@ -81,8 +81,8 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:${{ steps.version.outputs.new_version }}
           ${{ secrets.DOCKERHUB_USERNAME }}/my-flask-app:latest
-          ghcr.io/${{ github.actor }}/my-flask-app:${{ steps.version.outputs.new_version }}
-          ghcr.io/${{ github.actor }}/my-demo-app:${{ steps.version.outputs.new_version }}
+          ghcr.io/toesan-devcloud/my-flask-app:${{ steps.version.outputs.new_version }}
+         
      
 
     - name: Update Kubernetes deployment image tag
