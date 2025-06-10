@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-app
+  name: flask-app        #application name
   labels:
-    app: flask-app
+    app: flask-app       #application name
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flask-app
+      app: flask-app     #application name
   template:
     metadata:
       labels:
-        app: flask-app
+        app: flask-app    #application name
     spec:
       containers:
-        - name: flask-app
-          image: toes4n/my-flask-app:1.0.43
+        - name: flask-app      #container name
+          image: toes4n/my-flask-app:1.0.43    #ghcr image pull url 
           ports:
             - containerPort: 5000
 
@@ -24,35 +24,35 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-app
+  name: flask-app  #application service name
 spec:
   selector:
     app: flask-app
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 5000
+      targetPort: 5000     #containerPort
   type: ClusterIP
 
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: flask-app-ingress
+  name: flask-app-ingress     #application ingress name
 spec:
   ingressClassName: alb
   rules:
-    - host: flask.tsandev.org
+    - host: flask.tsandev.org  #domain name
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: flask-app
+                name: flask-app      #application service name
                 port:
                   number: 80
   tls:
     - hosts:
-        - flask.tsandev.org
+        - flask.tsandev.org      #Domain name
       secretName: tsandev-tls-secret
