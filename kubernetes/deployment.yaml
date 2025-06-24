@@ -40,7 +40,7 @@ kind: Ingress
 metadata:
   name: flask-app-ingress     #application ingress name
 spec:
-  ingressClassName: alb
+  ingressClassName: nginx
   rules:
     - host: flask.tsandev.org  #domain name
       http:
