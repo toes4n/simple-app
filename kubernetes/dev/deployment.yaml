@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: flask-app
+  labels:
+    app: flask-app
+spec:
+  serviceName: "flask-app"
+  selector:
+    matchLabels:
+      app: flask-app
+  minReadySeconds: 10
+  template:
+    metadata:
+      annotations:
+        k8s.aliyun.com/eci-fixed-ip: "true"  # Enables the fixed IP address.
+      labels:
+        app: flask-app
+        alibabacloud.com/eci: "true" # Enables the fixed IP address.
+    spec:
+      imagePullSecrets:
+      - name: cdsg-ghcr-secret
+      containers:
+      - name: flask-app
+        image: ghcr.io/cdsg-dev/my-flask-app:1.0.49
+        ports:
+        - containerPort: 5000
+          name: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app   #application service name
+spec:
+  selector:
+    app: flask-app   #application service name
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000  #containerPort
+  type: ClusterIP
+
+---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: flask-app-ingress  #application ingress name
+#spec:
+#  ingressClassName: alb #Public Ingress Class # (alb-private) Private Ingress Class
+#  rules:
+#    - host: uatflask.ctzpay.com  #domain name
+#      http:
+#        paths:
+#          - path: /
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: flask-app  #application service name
+#                port:
+#                  number: 80
+#  tls:
+#    - hosts:
+#        - uatflask.ctzpay.com #domain name
+#      secretName: ctzpay-tls-secret
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask-app-private-ingress  #application ingress name
+spec:
+  ingressClassName: alb-private #Public Ingress Class # (alb-private) Private Ingress Class
+  rules:
+    - host: uatprivateflask.ctzpay.com  #domain name
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: flask-app  #application service name
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - uatprivateflask.ctzpay.com #domain name
+      secretName: ctzpay-tls-secret
