@@ -40,7 +40,7 @@ kind: Ingress
 metadata:
   name: flask-app-ingress  #application ingress name
 spec:
-  ingressClassName: alb #Public Ingress Class # (alb-private) Private Ingress Class
+  ingressClassName: nginx #Public Ingress Class # (alb-private) Private Ingress Class
   rules:
     - host: prodflask.grandroyal-group.com #domain name
       http:
