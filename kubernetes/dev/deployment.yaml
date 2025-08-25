@@ -19,7 +19,6 @@ spec:
           image: toes4n/my-flask-app:1.0.44
           ports:
             - containerPort: 5000
-
 ---
 apiVersion: v1
 kind: Service
