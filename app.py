@@ -266,14 +266,9 @@ BASE_TEMPLATE = """
             transition: all 0.3s ease;
         }
         
-        tr:hover {
+        tbody tr:hover {
             background: #f8f9fa;
             transform: scale(1.01);
-        }
-        
-        .comparison-table td:first-child {
-            font-weight: 600;
-            color: #667eea;
         }
         
         .hero {
@@ -289,14 +284,12 @@ BASE_TEMPLATE = """
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 1rem;
-            animation: fadeIn 1.2s ease-out;
         }
         
         .hero p {
             font-size: 1.3rem;
             color: #666;
             margin-bottom: 2rem;
-            animation: fadeIn 1.4s ease-out;
         }
         
         .highlight {
@@ -305,7 +298,6 @@ BASE_TEMPLATE = """
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-radius: 15px;
-            animation: fadeIn 1.6s ease-out;
         }
         
         .highlight h2 { margin-bottom: 1rem; }
@@ -333,19 +325,12 @@ BASE_TEMPLATE = """
             overflow-x: auto;
             margin: 1rem 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            animation: fadeIn 0.8s ease-out;
         }
         
         pre code {
             background: transparent;
             color: #f8f8f2;
             padding: 0;
-        }
-        
-        .kong-logo {
-            display: inline-block;
-            font-size: 2.5rem;
-            animation: pulse 2s ease-in-out infinite;
         }
     </style>
 </head>
@@ -369,9 +354,9 @@ BASE_TEMPLATE = """
 </html>
 """
 
-HOME_PAGE = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', """
+HOME_PAGE = """
 <div class="hero">
-    <h1>🦸🏻‍♂️ Welcome to SRE KT Kitty Session 🤪</h1>
+    <h1>🐈 Welcome SRE Team KT Kitty Lay Myr Session</h1>
     <p>Learn DevOps, Kubernetes, and Cloud-Native Concepts</p>
     
     <div class="grid">
@@ -412,74 +397,27 @@ HOME_PAGE = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', """
         </ul>
     </div>
 </div>
-""")
+"""
 
 KONG_PAGE = """
-<h1 style="color: #667eea; margin-bottom: 2rem; text-align: center;"><span class="kong-logo">🦍</span> Kong Gateway & Ingress Controller</h1>
+<h1 style="color: #667eea; margin-bottom: 2rem; text-align: center;">🦍 Kong Gateway & Ingress Controller</h1>
 
 <div class="concept-card">
     <h2>📖 What is Kong Gateway?</h2>
-    <p>Kong Gateway is a lightweight, fast, and flexible cloud-native API gateway built for hybrid and multi-cloud environments, optimized for microservices and distributed architectures. It runs in front of any RESTful API and can be extended through modules and plugins.</p>
+    <p>Kong Gateway is a lightweight, fast, and flexible cloud-native API gateway optimized for microservices and distributed architectures. It runs in front of any RESTful API and can be extended through plugins.</p>
     
     <h3>Key Features</h3>
     <ul>
         <li>🚀 High-performance API gateway with low latency</li>
-        <li>🔌 60+ plugins for authentication, security, traffic control, and more</li>
-        <li>🤖 Advanced AI Gateway capabilities for LLM and MCP traffic</li>
+        <li>🔌 60+ plugins for authentication, security, and traffic control</li>
         <li>☸️ Native Kubernetes Ingress Controller support</li>
         <li>🌐 Multi-cloud and hybrid deployment support</li>
-        <li>📊 Real-time analytics and monitoring</li>
         <li>🔐 Enterprise-grade security and authentication</li>
     </ul>
 </div>
 
 <div class="concept-card">
-    <h2>☸️ Kong Ingress Controller (KIC)</h2>
-    <p>Kong Ingress Controller allows you to run Kong Gateway as a Kubernetes Ingress to handle inbound requests for a Kubernetes cluster. It takes Kubernetes resources such as <code>Ingress</code> and <code>HTTPRoute</code> and converts them into valid Kong Gateway configuration.</p>
-    
-    <h3>Why Use Kong Ingress Controller?</h3>
-    <ul>
-        <li><strong>Kubernetes-native</strong>: Configure Kong Gateway using Kubernetes CRDs</li>
-        <li><strong>Rich functionality</strong>: Access all Kong Gateway features through Kubernetes resources</li>
-        <li><strong>Protocol support</strong>: HTTP, HTTPS, gRPC, TCP, and UDP</li>
-        <li><strong>Advanced routing</strong>: Path-based, header-based, and method-based routing</li>
-        <li><strong>Plugin system</strong>: Apply Kong plugins at ingress, service, or route level</li>
-        <li><strong>Service mesh integration</strong>: Works with Istio and other service meshes</li>
-    </ul>
-</div>
-
-<div class="architecture-diagram">
-    <h3 style="color: #667eea; margin-bottom: 1.5rem;">Kong Ingress Controller Architecture</h3>
-    <div style="margin: 2rem 0; text-align: center;">
-        <div style="background: #fff3e0; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-            <strong style="color: #e65100;">🌐 External Traffic (Internet)</strong>
-        </div>
-        <div style="font-size: 2rem;">⬇️</div>
-        <div style="background: #e1f5fe; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
-            <strong style="color: #01579b;">Kong Gateway (Data Plane)</strong><br><br>
-            <div class="component-box" style="border-color: #01579b;">Load Balancer</div>
-            <div class="component-box" style="border-color: #01579b;">Plugins</div>
-            <div class="component-box" style="border-color: #01579b;">Routing Engine</div>
-        </div>
-        <div style="font-size: 2rem;">⬅️ Configures ➡️</div>
-        <div style="background: #f3e5f5; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
-            <strong style="color: #4a148c;">Kong Ingress Controller</strong><br><br>
-            <div class="component-box" style="border-color: #4a148c;">Watches K8s API</div>
-            <div class="component-box" style="border-color: #4a148c;">Converts CRDs</div>
-        </div>
-        <div style="font-size: 2rem;">⬇️</div>
-        <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
-            <strong style="color: #1b5e20;">Kubernetes Services & Pods</strong><br><br>
-            <div class="component-box" style="border-color: #1b5e20;">Service A</div>
-            <div class="component-box" style="border-color: #1b5e20;">Service B</div>
-            <div class="component-box" style="border-color: #1b5e20;">Service C</div>
-        </div>
-    </div>
-</div>
-
-<div class="concept-card">
-    <h2>📝 Kong Ingress Resource Example</h2>
-    <p>Standard Kubernetes Ingress with Kong-specific annotations:</p>
+    <h2>📝 Kong Ingress Example</h2>
     <pre><code>
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -487,7 +425,7 @@ metadata:
   name: flask-ingress
   annotations:
     konghq.com/strip-path: "true"
-    konghq.com/plugins: rate-limiting, cors
+    konghq.com/plugins: rate-limiting
 spec:
   ingressClassName: kong
   rules:
@@ -504,216 +442,76 @@ spec:
 </div>
 
 <div class="concept-card">
-    <h2>🚀 Kong Gateway API Support</h2>
-    <p>Kong supports the modern Kubernetes Gateway API for more expressive traffic management:</p>
-    
-    <h3>Gateway Resource</h3>
-    <pre><code>
-apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
-metadata:
-  name: kong-gateway
-spec:
-  gatewayClassName: kong
-  listeners:
-  - name: http
-    protocol: HTTP
-    port: 80
-  - name: https
-    protocol: HTTPS
-    port: 443
-    tls:
-      mode: Terminate
-      certificateRefs:
-      - name: flask-tls-cert</code></pre>
-    
-    <h3>HTTPRoute with Kong</h3>
-    <pre><code>
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: flask-route
-  annotations:
-    konghq.com/plugins: rate-limiting, key-auth
-spec:
-  parentRefs:
-  - name: kong-gateway
-  hostnames:
-  - "flask.example.com"
-  rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /api/v1
-    backendRefs:
-    - name: flask-service
-      port: 5000
-      weight: 90
-    - name: flask-service-canary
-      port: 5000
-      weight: 10  # 10% canary traffic
-    filters:
-    - type: RequestHeaderModifier
-      requestHeaderModifier:
-        add:
-        - name: X-Kong-Route
-          value: "production"</code></pre>
+    <h2>🔗 Official Resources</h2>
+    <div style="margin-top: 1rem;">
+        <a href="https://docs.konghq.com/" target="_blank" class="link-button">Kong Documentation</a>
+        <a href="https://github.com/Kong/kubernetes-ingress-controller" target="_blank" class="link-button">Kong Ingress GitHub</a>
+    </div>
 </div>
+"""
 
-<div class="concept-card">
-    <h2>🔌 Kong Plugins</h2>
-    <p>Kong's plugin architecture provides powerful functionality:</p>
-    
-    <h3>Popular Plugins</h3>
-    <table>
-        <tr>
-            <th>Category</th>
-            <th>Plugin</th>
-            <th>Purpose</th>
-        </tr>
-        <tr>
-            <td>🔐 Authentication</td>
-            <td>key-auth, jwt, oauth2, basic-auth</td>
-            <td>Secure API access</td>
-        </tr>
-        <tr>
-            <td>🚦 Traffic Control</td>
-            <td>rate-limiting, request-size-limiting, response-ratelimiting</td>
-            <td>Control API usage</td>
-        </tr>
-        <tr>
-            <td>🔄 Transformation</td>
-            <td>request-transformer, response-transformer</td>
-            <td>Modify requests/responses</td>
-        </tr>
-        <tr>
-            <td>📊 Analytics</td>
-            <td>prometheus, datadog, zipkin</td>
-            <td>Monitor and trace</td>
-        </tr>
-        <tr>
-            <td>🛡️ Security</td>
-            <td>cors, ip-restriction, bot-detection</td>
-            <td>Protect APIs</td>
-        </tr>
-        <tr>
-            <td>⚡ Performance</td>
-            <td>proxy-cache, gzip</td>
-            <td>Optimize performance</td>
-        </tr>
-    </table>
-    
-    <h3>Applying Plugins with CRDs</h3>
-    <pre><code>
-apiVersion: configuration.konghq.com/v1
-kind: KongPlugin
-metadata:
-  name: rate-limiting
-config:
-  minute: 100
-  hour: 10000
-  policy: local
-plugin: rate-limiting
----
-apiVersion: configuration.konghq.com/v1
-kind: KongPlugin
-metadata:
-  name: cors
-config:
-  origins:
-  - "*"
-  methods:
-  - GET
-  - POST
-  headers:
-  - Accept
-  - Authorization
-  exposed_headers:
-  - X-Auth-Token
-  credentials: true
-  max_age: 3600
-plugin: cors</code></pre>
-</div>
+# Routes
+@app.route('/')
+def home():
+    html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', HOME_PAGE)
+    return render_template_string(html, version=VERSION, environment=ENVIRONMENT)
 
-<div class="concept-card">
-    <h2>⚙️ Kong Deployment Models</h2>
-    
-    <h3>1. DB-less Mode (Declarative)</h3>
-    <ul>
-        <li>No database required</li>
-        <li>Configuration via declarative YAML files</li>
-        <li>Perfect for Kubernetes with GitOps</li>
-        <li>Lower operational complexity</li>
-    </ul>
-    
-    <h3>2. Database Mode (PostgreSQL)</h3>
-    <ul>
-        <li>Uses PostgreSQL for configuration storage</li>
-        <li>Supports Admin API for dynamic configuration</li>
-        <li>Better for dynamic environments</li>
-        <li>Enables Kong Manager UI</li>
-    </ul>
-    
-    <h3>3. Hybrid Mode (Control/Data Plane Separation)</h3>
-    <ul>
-        <li>Control Plane manages configuration</li>
-        <li>Data Planes handle traffic</li>
-        <li>Ideal for multi-region deployments</li>
-        <li>Enhanced security and scalability</li>
-    </ul>
-</div>
+@app.route('/kong')
+def kong():
+    html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', KONG_PAGE)
+    return render_template_string(html, version=VERSION, environment=ENVIRONMENT)
 
-<div class="concept-card">
-    <h2>🎯 Kong vs Other Ingress Controllers</h2>
-    <table class="comparison-table">
-        <tr>
-            <th>Feature</th>
-            <th>Kong</th>
-            <th>NGINX</th>
-            <th>Traefik</th>
-        </tr>
-        <tr>
-            <td>Plugin Ecosystem</td>
-            <td>60+ plugins, extensible</td>
-            <td>Limited, module-based</td>
-            <td>Middleware system</td>
-        </tr>
-        <tr>
-            <td>API Gateway Features</td>
-            <td>Full-featured API gateway</td>
-            <td>Basic ingress functionality</td>
-            <td>Good ingress features</td>
-        </tr>
-        <tr>
-            <td>Gateway API Support</td>
-            <td>Full support</td>
-            <td>Partial support</td>
-            <td>Full support</td>
-        </tr>
-        <tr>
-            <td>Performance</td>
-            <td>High (OpenResty/LuaJIT)</td>
-            <td>Very High</td>
-            <td>High (Go-based)</td>
-        </tr>
-        <tr>
-            <td>AI/LLM Gateway</td>
-            <td>Native support</td>
-            <td>Not available</td>
-            <td>Not available</td>
-        </tr>
-        <tr>
-            <td>Management UI</td>
-            <td>Kong Manager</td>
-            <td>Third-party only</td>
-            <td>Dashboard available</td>
-        </tr>
-    </table>
-</div>
+@app.route('/devops-concepts')
+def devops():
+    return render_template_string(BASE_TEMPLATE.replace('{% block content %}{% endblock %}', '<h1 style="text-align:center;">📚 DevOps Concepts Coming Soon!</h1>'), version=VERSION, environment=ENVIRONMENT)
 
-<div class="concept-card">
-    <h2>💡 Kong Best Practices</h2>
-    <ul>
-        <li>Use DB-less mode with Kubernetes for GitOps workflows</li>
-        <li>Apply plugins at the appropriate level (global, service, route)</li>
-        <li>Enable rate
+@app.route('/kubernetes')
+def kubernetes():
+    return render_template_string(BASE_TEMPLATE.replace('{% block content %}{% endblock %}', '<h1 style="text-align:center;">☸️ Kubernetes Coming Soon!</h1>'), version=VERSION, environment=ENVIRONMENT)
+
+@app.route('/ingress-gateway')
+def ingress():
+    return render_template_string(BASE_TEMPLATE.replace('{% block content %}{% endblock %}', '<h1 style="text-align:center;">🚪 Ingress & Gateway Coming Soon!</h1>'), version=VERSION, environment=ENVIRONMENT)
+
+@app.route('/alibaba-ack')
+def ack():
+    return render_template_string(BASE_TEMPLATE.replace('{% block content %}{% endblock %}', '<h1 style="text-align:center;">☁️ Alibaba ACK Coming Soon!</h1>'), version=VERSION, environment=ENVIRONMENT)
+
+@app.route('/health')
+def health():
+    return jsonify({
+        'status': 'healthy',
+        'timestamp': datetime.datetime.now().isoformat(),
+        'version': VERSION,
+        'hostname': socket.gethostname()
+    }), 200
+
+@app.route('/info')
+def info():
+    deployment_info = {
+        'hostname': socket.gethostname(),
+        'version': VERSION,
+        'environment': ENVIRONMENT,
+        'platform': os.uname().sysname,
+        'architecture': os.uname().machine,
+        'python_version': os.sys.version.split()[0],
+        'timestamp': datetime.datetime.now().isoformat()
+    }
+    
+    info_html = f"""
+    <h1 style="color: #667eea; margin-bottom: 2rem; text-align: center;">ℹ️ Deployment Information</h1>
+    <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+        <table>
+            {''.join([f'<tr><td style="font-weight: 600; color: #667eea;">{key.replace("_", " ").title()}</td><td>{value}</td></tr>' for key, value in deployment_info.items()])}
+        </table>
+    </div>
+    <div style="margin-top: 2rem; padding: 1.5rem; background: #e8f5e9; border-left: 5px solid #4caf50; border-radius: 5px;">
+        <strong style="color: #2e7d32;">✅ Status:</strong> Application is running successfully!
+    </div>
+    """
+    
+    html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', info_html)
+    return render_template_string(html, version=VERSION, environment=ENVIRONMENT)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=False)
