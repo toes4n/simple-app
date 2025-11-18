@@ -162,7 +162,7 @@ BASE_TEMPLATE = """
 
 HOME_PAGE = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', """
 <div class="hero">
-    <h1>🚀 Welcome to DevOps Learning Platform</h1>
+    <h1>🚀 Welcome to DevOps Mini Guide Platform</h1>
     <p>Learn DevOps Concepts Through Hands-On Practice</p>
     
     <div class="grid">
