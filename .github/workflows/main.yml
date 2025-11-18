@@ -75,7 +75,7 @@ jobs:
 
     - name: Update Kubernetes deployment image tag
       run: |
-        sed -i "s|\(image: .*/my-flask-app:\).*|\1${{ steps.version.outputs.new_version }}|" kubernetes/deployment.yaml
+        sed -i "s|\(image: .*/my-flask-app:\).*|\1${{ steps.version.outputs.new_version }}|" kubernetes/oci/deployment.yaml
 
     - name: Commit updated deployment.yaml
       if: github.event_name == 'push'
