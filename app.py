@@ -346,7 +346,7 @@ BASE_TEMPLATE = """
 
 HOME_CONTENT = """
 <div class="hero">
-    <h1>🚀 DevOps Learning Platform</h1>
+    <h1>🐈 SRE Team KT Kitty Lay Myr Session ₍^. .^₎Ⳋ </h1>
     <p>Master Kubernetes, API Gateway, and Cloud-Native Technologies</p>
     
     <div class="grid">
