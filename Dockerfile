@@ -1,15 +1,21 @@
-FROM python:3.9-slim
+# Use build platform for dependencies
+FROM --platform=$BUILDPLATFORM python:3.11-slim AS build
 
 WORKDIR /app
 
-# Don't use requirements.txt initially - install packages directly
-RUN pip install --no-cache-dir flask==2.0.1 werkzeug==2.0.1
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy your application code
 COPY . .
 
-# Expose the port
+# Final multi-platform stage
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY --from=build /app /app
+COPY --from=build /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+
 EXPOSE 5000
 
-# Command to run the application
 CMD ["python", "app.py"]
