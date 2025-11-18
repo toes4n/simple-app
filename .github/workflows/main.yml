@@ -62,20 +62,26 @@ jobs:
         username: toesan-devcloud
         password: ${{ secrets.GIT_DEV }}
 
+    # ADD: Set up QEMU for ARM emulation
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
   
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
         context: .
         push: true
-        platforms: linux/amd64              # ← ADD THIS LINE
-        provenance: false                   # ← ADD THIS LINE
-        sbom: false                         # ← ADD THIS LINE
+        platforms: linux/amd64,linux/arm64          # ← CHANGED: Multiple platforms
+        provenance: false
+        sbom: false
+        cache-from: type=gha                        # ← ADD: GitHub cache for faster builds
+        cache-to: type=gha,mode=max                 # ← ADD: Save cache
         tags: |
           ghcr.io/toesan-devcloud/my-flask-app:${{ steps.version.outputs.new_version }}
-
+          ghcr.io/toesan-devcloud/my-flask-app:latest
 
     - name: Update Kubernetes deployment image tag
       run: |
