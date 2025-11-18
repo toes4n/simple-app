@@ -76,6 +76,7 @@ jobs:
         tags: |
           ghcr.io/toesan-devcloud/my-flask-app:${{ steps.version.outputs.new_version }}
 
+
     - name: Update Kubernetes deployment image tag
       run: |
         sed -i "s|\(image: .*/my-flask-app:\).*|\1${{ steps.version.outputs.new_version }}|" kubernetes/oci/deployment.yaml
