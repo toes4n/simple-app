@@ -14,7 +14,7 @@ BASE_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Learning App</title>
+    <title>DevOps Learning Platform</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -88,14 +88,8 @@ BASE_TEMPLATE = """
             transition: width 0.3s ease;
         }
         
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        nav a:hover {
-            color: #764ba2;
-            transform: translateY(-2px);
-        }
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: #764ba2; transform: translateY(-2px); }
         
         .badge {
             display: inline-block;
@@ -148,6 +142,7 @@ BASE_TEMPLATE = """
         
         .card h3 { margin: 1rem 0 0.5rem 0; color: #333; }
         .card p { color: #666; }
+        
         .icon {
             font-size: 3rem;
             animation: float 3s ease-in-out infinite;
@@ -262,11 +257,9 @@ BASE_TEMPLATE = """
             font-weight: 600;
         }
         
-        tr {
-            transition: all 0.3s ease;
-        }
+        tr { transition: all 0.3s ease; }
         
-        tbody tr:hover {
+        tr:hover {
             background: #f8f9fa;
             transform: scale(1.01);
         }
@@ -300,7 +293,6 @@ BASE_TEMPLATE = """
             border-radius: 15px;
         }
         
-        .highlight h2 { margin-bottom: 1rem; }
         .highlight ul {
             text-align: left;
             margin: 1.5rem auto;
@@ -329,7 +321,6 @@ BASE_TEMPLATE = """
         
         pre code {
             background: transparent;
-            color: #f8f8f2;
             padding: 0;
         }
     </style>
@@ -338,82 +329,272 @@ BASE_TEMPLATE = """
     <nav>
         <ul>
             <li><a href="/">🏠 Home</a></li>
-            <li><a href="/devops-concepts">📚 DevOps</a></li>
             <li><a href="/kubernetes">☸️ Kubernetes</a></li>
-            <li><a href="/ingress-gateway">🚪 Ingress & Gateway</a></li>
+            <li><a href="/ingress">🚪 Ingress & Gateway</a></li>
             <li><a href="/kong">🦍 Kong</a></li>
-            <li><a href="/alibaba-ack">☁️ Alibaba ACK</a></li>
+            <li><a href="/ack">☁️ Alibaba ACK</a></li>
             <li><a href="/info">ℹ️ Info</a></li>
             <li class="badge">v{{ version }} | {{ environment }}</li>
         </ul>
     </nav>
     <div class="container">
-        {% block content %}{% endblock %}
+        {{ content|safe }}
     </div>
 </body>
 </html>
 """
 
-HOME_PAGE = """
+HOME_CONTENT = """
 <div class="hero">
-    <h1>🐈 Welcome SRE Team KT Kitty Lay Myr Session</h1>
-    <p>Learn DevOps, Kubernetes, and Cloud-Native Concepts</p>
+    <h1>🚀 DevOps Learning Platform</h1>
+    <p>Master Kubernetes, API Gateway, and Cloud-Native Technologies</p>
     
     <div class="grid">
         <div class="card">
             <div class="icon">☸️</div>
             <h3>Kubernetes</h3>
-            <p>Architecture & Components</p>
+            <p>Container Orchestration</p>
         </div>
-        
         <div class="card">
             <div class="icon">🚪</div>
             <h3>Ingress & Gateway</h3>
             <p>Traffic Management</p>
         </div>
-        
         <div class="card">
             <div class="icon">🦍</div>
             <h3>Kong Gateway</h3>
-            <p>API Gateway & Ingress</p>
+            <p>API Management</p>
         </div>
-        
         <div class="card">
             <div class="icon">☁️</div>
             <h3>Alibaba ACK</h3>
-            <p>Managed Kubernetes</p>
+            <p>Managed K8s Service</p>
         </div>
     </div>
     
     <div class="highlight">
-        <h2>🎯 This Application Demonstrates:</h2>
+        <h2>🎯 Platform Features</h2>
         <ul>
             <li>✅ Multi-platform Docker builds (AMD64/ARM64)</li>
             <li>✅ Kubernetes deployment with HPA</li>
             <li>✅ ArgoCD GitOps workflow</li>
             <li>✅ GitHub Actions CI/CD</li>
-            <li>✅ Kong Ingress Controller integration</li>
+            <li>✅ Kong Ingress Controller</li>
             <li>✅ Gateway API with HTTPRoute</li>
         </ul>
     </div>
 </div>
 """
 
-KONG_PAGE = """
-<h1 style="color: #667eea; margin-bottom: 2rem; text-align: center;">🦍 Kong Gateway & Ingress Controller</h1>
+KUBERNETES_CONTENT = """
+<h1 style="color: #667eea; text-align: center; margin-bottom: 2rem;">☸️ Kubernetes Architecture</h1>
 
 <div class="concept-card">
-    <h2>📖 What is Kong Gateway?</h2>
-    <p>Kong Gateway is a lightweight, fast, and flexible cloud-native API gateway optimized for microservices and distributed architectures. It runs in front of any RESTful API and can be extended through plugins.</p>
+    <h2>📖 Official Documentation</h2>
+    <p>Kubernetes is an open-source container orchestration platform for automating deployment, scaling, and management.</p>
+    <a href="https://kubernetes.io/docs/" target="_blank" class="link-button">Official Docs</a>
+    <a href="https://kubernetes.io/docs/concepts/architecture/" target="_blank" class="link-button">Architecture Guide</a>
+</div>
+
+<div class="architecture-diagram">
+    <h3 style="color: #667eea; margin-bottom: 1.5rem;">Kubernetes Cluster Architecture</h3>
+    <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+        <strong style="color: #1976d2;">Control Plane</strong><br><br>
+        <div class="component-box">API Server</div>
+        <div class="component-box">etcd</div>
+        <div class="component-box">Scheduler</div>
+        <div class="component-box">Controller Manager</div>
+    </div>
+    <div style="font-size: 2rem; color: #667eea;">⬇️</div>
+    <div style="background: #f3e5f5; padding: 1.5rem; border-radius: 8px; margin-top: 1rem;">
+        <strong style="color: #7b1fa2;">Worker Nodes</strong><br><br>
+        <div class="component-box">kubelet</div>
+        <div class="component-box">kube-proxy</div>
+        <div class="component-box">Container Runtime</div>
+        <div class="component-box">Pods</div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>📦 Core Components</h2>
+    <h3>Control Plane</h3>
+    <ul>
+        <li><code>kube-apiserver</code> - Exposes the Kubernetes HTTP API</li>
+        <li><code>etcd</code> - Consistent key-value store for cluster data</li>
+        <li><code>kube-scheduler</code> - Assigns Pods to nodes</li>
+        <li><code>kube-controller-manager</code> - Runs controller processes</li>
+    </ul>
+    
+    <h3>Worker Node Components</h3>
+    <ul>
+        <li><code>kubelet</code> - Ensures containers are running in Pods</li>
+        <li><code>kube-proxy</code> - Network proxy for Service communication</li>
+        <li><code>Container Runtime</code> - containerd, CRI-O, Docker</li>
+    </ul>
+</div>
+
+<div class="concept-card">
+    <h2>🔧 Essential kubectl Commands</h2>
+    <pre><code># Cluster info
+kubectl cluster-info
+kubectl get nodes
+
+# Pod operations
+kubectl get pods -A
+kubectl logs &lt;pod-name&gt;
+kubectl exec -it &lt;pod-name&gt; -- /bin/bash
+
+# Deployments
+kubectl apply -f deployment.yaml
+kubectl rollout status deployment/&lt;name&gt;</code></pre>
+</div>
+"""
+
+INGRESS_CONTENT = """
+<h1 style="color: #667eea; text-align: center; margin-bottom: 2rem;">🚪 Ingress & Gateway API</h1>
+
+<div class="concept-card">
+    <h2>📖 Kubernetes Ingress</h2>
+    <p>Ingress manages external access to services in a cluster, typically HTTP/HTTPS.</p>
+    
+    <h3>Ingress Example</h3>
+    <pre><code>
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask-ingress
+spec:
+  rules:
+  - host: flask.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: flask-service
+            port:
+              number: 5000</code></pre>
+</div>
+
+<div class="architecture-diagram">
+    <h3 style="color: #667eea;">Ingress Traffic Flow</h3>
+    <div style="background: #fff3e0; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>🌐 External Traffic</strong>
+    </div>
+    <div style="font-size: 2rem;">⬇️</div>
+    <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>Ingress Controller</strong>
+    </div>
+    <div style="font-size: 2rem;">⬇️</div>
+    <div style="background: #e8f5e9; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>Service</strong>
+    </div>
+    <div style="font-size: 2rem;">⬇️</div>
+    <div style="background: #f3e5f5; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>Pods</strong>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>🚀 Gateway API - Next Generation</h2>
+    <p>Gateway API provides more expressive, extensible, and role-oriented API for traffic management.</p>
+    
+    <h3>HTTPRoute Example</h3>
+    <pre><code>
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: flask-route
+spec:
+  parentRefs:
+  - name: my-gateway
+  hostnames:
+  - "flask.example.com"
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: flask-service
+      port: 5000</code></pre>
+</div>
+
+<div class="concept-card">
+    <h2>⚖️ Ingress vs Gateway API</h2>
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>Ingress</th>
+            <th>Gateway API</th>
+        </tr>
+        <tr>
+            <td>Architecture</td>
+            <td>Flat (single resource)</td>
+            <td>Layered (Gateway → Route)</td>
+        </tr>
+        <tr>
+            <td>Protocol Support</td>
+            <td>HTTP/HTTPS only</td>
+            <td>HTTP, TCP, UDP, gRPC</td>
+        </tr>
+        <tr>
+            <td>Extensibility</td>
+            <td>Annotations</td>
+            <td>CRD-based</td>
+        </tr>
+        <tr>
+            <td>Traffic Management</td>
+            <td>Basic routing</td>
+            <td>Advanced (splitting, mirroring)</td>
+        </tr>
+    </table>
+</div>
+"""
+
+KONG_CONTENT = """
+<h1 style="color: #667eea; text-align: center; margin-bottom: 2rem;">🦍 Kong Gateway & Ingress Controller</h1>
+
+<div class="concept-card">
+    <h2>📖 What is Kong?</h2>
+    <p>Kong Gateway is a cloud-native, fast, and flexible API gateway for microservices and distributed architectures.</p>
     
     <h3>Key Features</h3>
     <ul>
-        <li>🚀 High-performance API gateway with low latency</li>
-        <li>🔌 60+ plugins for authentication, security, and traffic control</li>
-        <li>☸️ Native Kubernetes Ingress Controller support</li>
-        <li>🌐 Multi-cloud and hybrid deployment support</li>
-        <li>🔐 Enterprise-grade security and authentication</li>
+        <li>🚀 High-performance API gateway (OpenResty/LuaJIT)</li>
+        <li>🔌 60+ plugins for auth, security, traffic control</li>
+        <li>☸️ Native Kubernetes Ingress Controller</li>
+        <li>🌐 Multi-cloud and hybrid deployment</li>
+        <li>🤖 AI Gateway for LLM traffic management</li>
     </ul>
+    
+    <div style="margin-top: 1rem;">
+        <a href="https://konghq.com" target="_blank" class="link-button">Kong Official</a>
+        <a href="https://docs.konghq.com/kubernetes-ingress-controller" target="_blank" class="link-button">KIC Docs</a>
+    </div>
+</div>
+
+<div class="architecture-diagram">
+    <h3 style="color: #667eea;">Kong Ingress Controller Architecture</h3>
+    <div style="background: #fff3e0; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>🌐 External Traffic</strong>
+    </div>
+    <div style="font-size: 2rem;">⬇️</div>
+    <div style="background: #e1f5fe; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>Kong Gateway (Data Plane)</strong><br>
+        <div class="component-box">Load Balancer</div>
+        <div class="component-box">Plugins</div>
+        <div class="component-box">Router</div>
+    </div>
+    <div style="font-size: 2rem;">⬅️ Configures</div>
+    <div style="background: #f3e5f5; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>Kong Ingress Controller</strong>
+    </div>
+    <div style="font-size: 2rem;">⬇️</div>
+    <div style="background: #e8f5e9; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>Kubernetes Services & Pods</strong>
+    </div>
 </div>
 
 <div class="concept-card">
@@ -425,7 +606,7 @@ metadata:
   name: flask-ingress
   annotations:
     konghq.com/strip-path: "true"
-    konghq.com/plugins: rate-limiting
+    konghq.com/plugins: rate-limiting, cors
 spec:
   ingressClassName: kong
   rules:
@@ -442,40 +623,180 @@ spec:
 </div>
 
 <div class="concept-card">
-    <h2>🔗 Official Resources</h2>
-    <div style="margin-top: 1rem;">
-        <a href="https://docs.konghq.com/" target="_blank" class="link-button">Kong Documentation</a>
-        <a href="https://github.com/Kong/kubernetes-ingress-controller" target="_blank" class="link-button">Kong Ingress GitHub</a>
-    </div>
+    <h2>🔌 Popular Kong Plugins</h2>
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Plugins</th>
+        </tr>
+        <tr>
+            <td>🔐 Authentication</td>
+            <td>key-auth, jwt, oauth2, basic-auth</td>
+        </tr>
+        <tr>
+            <td>🚦 Traffic Control</td>
+            <td>rate-limiting, request-size-limiting</td>
+        </tr>
+        <tr>
+            <td>🔄 Transformation</td>
+            <td>request-transformer, response-transformer</td>
+        </tr>
+        <tr>
+            <td>📊 Analytics</td>
+            <td>prometheus, datadog, zipkin</td>
+        </tr>
+        <tr>
+            <td>🛡️ Security</td>
+            <td>cors, ip-restriction, bot-detection</td>
+        </tr>
+    </table>
+</div>
+
+<div class="concept-card">
+    <h2>💡 Kong Best Practices</h2>
+    <ul>
+        <li>Use DB-less mode with Kubernetes for GitOps</li>
+        <li>Apply plugins at appropriate levels (global/service/route)</li>
+        <li>Enable rate limiting to protect backend services</li>
+        <li>Use HTTPRoute for advanced Gateway API routing</li>
+        <li>Monitor with Prometheus plugin integration</li>
+        <li>Implement proper authentication for production APIs</li>
+    </ul>
 </div>
 """
 
-# Routes
+ACK_CONTENT = """
+<h1 style="color: #667eea; text-align: center; margin-bottom: 2rem;">☁️ Alibaba Cloud Container Service (ACK)</h1>
+
+<div class="concept-card">
+    <h2>📖 What is ACK?</h2>
+    <p>Alibaba Cloud Container Service for Kubernetes (ACK) is a fully managed Kubernetes service with deep integration into Alibaba Cloud services.</p>
+    
+    <h3>Key Benefits</h3>
+    <ul>
+        <li>Fully managed control plane</li>
+        <li>High availability across multiple zones</li>
+        <li>Deep integration with VPC, SLB, OSS, NAS</li>
+        <li>Built-in security and compliance</li>
+        <li>Auto-scaling and disaster recovery</li>
+    </ul>
+    
+    <a href="https://www.alibabacloud.com/product/kubernetes" target="_blank" class="link-button">ACK Product Page</a>
+    <a href="https://www.alibabacloud.com/help/container-service-for-kubernetes" target="_blank" class="link-button">Documentation</a>
+</div>
+
+<div class="architecture-diagram">
+    <h3 style="color: #667eea;">ACK Service Architecture</h3>
+    <div style="background: #fff3e0; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>☁️ Alibaba Cloud Services</strong><br>
+        <div class="component-box">VPC</div>
+        <div class="component-box">SLB</div>
+        <div class="component-box">OSS</div>
+        <div class="component-box">NAS</div>
+    </div>
+    <div style="font-size: 2rem;">⬇️</div>
+    <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>ACK Managed Control Plane</strong><br>
+        <div class="component-box">API Server (HA)</div>
+        <div class="component-box">etcd (3 nodes)</div>
+        <div class="component-box">Scheduler</div>
+    </div>
+    <div style="font-size: 2rem;">⬇️</div>
+    <div style="background: #f3e5f5; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+        <strong>Worker Nodes (ECS Instances)</strong><br>
+        <div class="component-box">kubelet</div>
+        <div class="component-box">Container Runtime</div>
+        <div class="component-box">Your Apps</div>
+    </div>
+</div>
+
+<div class="concept-card">
+    <h2>🚀 ACK Cluster Types</h2>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><strong>Managed Kubernetes</strong></td>
+            <td>Alibaba manages control plane</td>
+        </tr>
+        <tr>
+            <td><strong>Serverless (ASK)</strong></td>
+            <td>No node management, pay per pod</td>
+        </tr>
+        <tr>
+            <td><strong>Dedicated Kubernetes</strong></td>
+            <td>Full control over all components</td>
+        </tr>
+        <tr>
+            <td><strong>Edge Kubernetes</strong></td>
+            <td>Extends K8s to edge locations</td>
+        </tr>
+    </table>
+</div>
+
+<div class="concept-card">
+    <h2>🔧 ACK Key Features</h2>
+    
+    <h3>Networking</h3>
+    <ul>
+        <li><strong>Terway</strong> - High-performance CNI plugin</li>
+        <li><strong>Flannel</strong> - Standard overlay networking</li>
+        <li>Network Policy support</li>
+        <li>SLB integration for load balancing</li>
+    </ul>
+    
+    <h3>Storage</h3>
+    <ul>
+        <li><strong>Cloud Disk</strong> - Block storage (SSD, ESSD)</li>
+        <li><strong>NAS</strong> - Shared file storage</li>
+        <li><strong>OSS</strong> - Object storage integration</li>
+        <li>Dynamic volume provisioning</li>
+    </ul>
+    
+    <h3>Auto Scaling</h3>
+    <ul>
+        <li>Horizontal Pod Autoscaler (HPA)</li>
+        <li>Vertical Pod Autoscaler (VPA)</li>
+        <li>Cluster Autoscaler</li>
+        <li>Scheduled scaling</li>
+    </ul>
+</div>
+
+<div class="concept-card">
+    <h2>💡 ACK Best Practices</h2>
+    <ul>
+        <li>Use managed clusters for easier operations</li>
+        <li>Deploy across multiple zones for HA</li>
+        <li>Use Terway CNI for better performance</li>
+        <li>Enable cluster autoscaling for cost optimization</li>
+        <li>Use ACR (Alibaba Container Registry) for faster pulls</li>
+        <li>Monitor with ARMS and Log Service</li>
+        <li>Implement pod security policies</li>
+    </ul>
+</div>
+"""
+
 @app.route('/')
 def home():
-    html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', HOME_PAGE)
-    return render_template_string(html, version=VERSION, environment=ENVIRONMENT)
-
-@app.route('/kong')
-def kong():
-    html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', KONG_PAGE)
-    return render_template_string(html, version=VERSION, environment=ENVIRONMENT)
-
-@app.route('/devops-concepts')
-def devops():
-    return render_template_string(BASE_TEMPLATE.replace('{% block content %}{% endblock %}', '<h1 style="text-align:center;">📚 DevOps Concepts Coming Soon!</h1>'), version=VERSION, environment=ENVIRONMENT)
+    return render_template_string(BASE_TEMPLATE, content=HOME_CONTENT, version=VERSION, environment=ENVIRONMENT)
 
 @app.route('/kubernetes')
 def kubernetes():
-    return render_template_string(BASE_TEMPLATE.replace('{% block content %}{% endblock %}', '<h1 style="text-align:center;">☸️ Kubernetes Coming Soon!</h1>'), version=VERSION, environment=ENVIRONMENT)
+    return render_template_string(BASE_TEMPLATE, content=KUBERNETES_CONTENT, version=VERSION, environment=ENVIRONMENT)
 
-@app.route('/ingress-gateway')
+@app.route('/ingress')
 def ingress():
-    return render_template_string(BASE_TEMPLATE.replace('{% block content %}{% endblock %}', '<h1 style="text-align:center;">🚪 Ingress & Gateway Coming Soon!</h1>'), version=VERSION, environment=ENVIRONMENT)
+    return render_template_string(BASE_TEMPLATE, content=INGRESS_CONTENT, version=VERSION, environment=ENVIRONMENT)
 
-@app.route('/alibaba-ack')
+@app.route('/kong')
+def kong():
+    return render_template_string(BASE_TEMPLATE, content=KONG_CONTENT, version=VERSION, environment=ENVIRONMENT)
+
+@app.route('/ack')
 def ack():
-    return render_template_string(BASE_TEMPLATE.replace('{% block content %}{% endblock %}', '<h1 style="text-align:center;">☁️ Alibaba ACK Coming Soon!</h1>'), version=VERSION, environment=ENVIRONMENT)
+    return render_template_string(BASE_TEMPLATE, content=ACK_CONTENT, version=VERSION, environment=ENVIRONMENT)
 
 @app.route('/health')
 def health():
@@ -498,20 +819,28 @@ def info():
         'timestamp': datetime.datetime.now().isoformat()
     }
     
-    info_html = f"""
-    <h1 style="color: #667eea; margin-bottom: 2rem; text-align: center;">ℹ️ Deployment Information</h1>
+    info_content = f"""
+    <h1 style="color: #667eea; text-align: center; margin-bottom: 2rem;">ℹ️ Deployment Information</h1>
     <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
         <table>
             {''.join([f'<tr><td style="font-weight: 600; color: #667eea;">{key.replace("_", " ").title()}</td><td>{value}</td></tr>' for key, value in deployment_info.items()])}
         </table>
     </div>
     <div style="margin-top: 2rem; padding: 1.5rem; background: #e8f5e9; border-left: 5px solid #4caf50; border-radius: 5px;">
-        <strong style="color: #2e7d32;">✅ Status:</strong> Application is running successfully!
+        <strong style="color: #2e7d32;">✅ Status:</strong> Application running successfully!
     </div>
     """
     
-    html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', info_html)
-    return render_template_string(html, version=VERSION, environment=ENVIRONMENT)
+    return render_template_string(BASE_TEMPLATE, content=info_content, version=VERSION, environment=ENVIRONMENT)
+
+@app.route('/api/metrics')
+def metrics():
+    return jsonify({
+        'requests_total': 100,
+        'uptime_seconds': 3600,
+        'memory_usage_mb': 128,
+        'cpu_usage_percent': 5.2
+    })
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
