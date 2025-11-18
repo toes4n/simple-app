@@ -70,6 +70,9 @@ jobs:
       with:
         context: .
         push: true
+        platforms: linux/amd64              # ← ADD THIS LINE
+        provenance: false                   # ← ADD THIS LINE
+        sbom: false                         # ← ADD THIS LINE
         tags: |
           ghcr.io/toesan-devcloud/my-flask-app:${{ steps.version.outputs.new_version }}
 
