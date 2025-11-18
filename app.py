@@ -399,7 +399,8 @@ INGRESS_GATEWAY_PAGE = """
     </ul>
     
     <h3>Example Ingress Resource</h3>
-    <pre><code>apiVersion: networking.k8s.io/v1
+    <pre><code>
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: flask-ingress
