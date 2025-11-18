@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flask-app      #container name
-          image: ghcr.io/toesan-devcloud/my-flask-app:1.0.68
+          image: ghcr.io/toesan-devcloud/my-flask-app:1.0.69
           ports:
             - containerPort: 5000
           resources:
