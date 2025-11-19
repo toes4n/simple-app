@@ -346,8 +346,8 @@ BASE_TEMPLATE = """
 
 HOME_CONTENT = """
 <div class="hero">
-    <h1> 🎮 Dev Platform 😎👌🔥 </h1>
-    <p>Master Kubernetes, API Gateway, and Cloud-Native Technologies</p>
+    <h1>  Dev Platform  </h1>
+    <p> ☸️ Master Kubernetes, API Gateway 🌐, and Cloud-Native Technologies ☁️ </p>
     
     <div class="grid">
         <div class="card">
