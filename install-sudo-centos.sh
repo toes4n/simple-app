@@ -2,7 +2,7 @@
 
 # Switch to root user (only relevant if running script interactively)
 # Uncomment if you want the script to stop and open an interactive root shell
-# sudo -i
+sudo -i
 
 # Update all packages
 sudo yum update -y
