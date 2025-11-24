@@ -1,15 +1,13 @@
 #!/bin/bash
 
-# Switch to root user (only relevant if running script interactively)
-# Uncomment if you want the script to stop and open an interactive root shell
-su -
+set -e
 
 # Update all packages
-sudo yum update -y
+yum update -y
 
 # Install Development Tools group and required packages
-sudo yum groupinstall "Development Tools" -y
-sudo yum install gcc gcc-c++ make pam-devel openssl-devel -y
+yum groupinstall "Development Tools" -y
+yum install -y gcc gcc-c++ make pam-devel openssl-devel wget
 
 # Go to /tmp directory
 cd /tmp || exit 1
@@ -25,11 +23,18 @@ cd sudo-1.9.17p2 || exit 1
 # Configure, build, and install sudo from source
 ./configure
 make
-sudo make install
+make install
 
-# Backup old sudo binary and replace it with the new one
-sudo mv /usr/bin/sudo /usr/bin/sudo.old
-sudo ln -sf /usr/local/bin/sudo /usr/bin/sudo
+# Backup old sudo binary (usually /usr/bin/sudo)
+if [ -f /usr/bin/sudo ]; then
+    mv /usr/bin/sudo /usr/bin/sudo.old
+fi
 
-# Verify sudo version
-sudo -V
+# Create symlinks for new sudo binary
+ln -sf /usr/local/bin/sudo /usr/bin/sudo
+ln -sf /usr/local/bin/sudo /bin/sudo
+
+# Verify new sudo version
+/usr/local/bin/sudo -V
+
+echo "Sudo upgrade successfully."
