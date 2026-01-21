@@ -63,3 +63,26 @@ spec:
     - hosts:
         - flask.tsandev.org      #Domain name
       secretName: tsandev-tls-secret
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: undp-gms-fe-user-ingress2 #application ingress name
+spec:
+  ingressClassName: kong
+  rules:
+    - host: flask.citizensmoney.com.mm #domain name
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: flask-app  #application service name
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - flask.citizensmoney.com.mm #Domain name
+      secretName: ctzmoney-com-mm-tls-secret
