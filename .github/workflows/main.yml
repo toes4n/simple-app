@@ -11,6 +11,27 @@ env:
   VERSION_FILE: version.txt
 
 jobs:
+  
+  sonar-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.projectKey=toesan_simple-app
+          -Dsonar.organization=toesan
+          -Dsonar.sources=.
+          -Dsonar.exclusions=kubernetes/**
+
   build-and-push:
     runs-on: ubuntu-latest
     permissions:
