@@ -30,7 +30,7 @@ jobs:
           -Dsonar.projectKey=toes4n_simple-app
           -Dsonar.organization=toes4n
           -Dsonar.sources=.
-          -Dsonar.exclusions=kubernetes/**
+          -Dsonar.exclusions=kubernetes/**,.github/workflows/**
 
   build-and-push:
     runs-on: ubuntu-latest
