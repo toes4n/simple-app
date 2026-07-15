@@ -27,8 +27,8 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-          -Dsonar.projectKey=toesan_simple-app
-          -Dsonar.organization=toesan
+          -Dsonar.projectKey=toes4n_simple-app
+          -Dsonar.organization=toes4n
           -Dsonar.sources=.
           -Dsonar.exclusions=kubernetes/**
 
@@ -79,7 +79,7 @@ jobs:
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
       with:
-        registry: ghcr.io
+        #registry: ghcr.io
         username: toesan-devcloud
         password: ${{ secrets.GIT_DEV }}
 
