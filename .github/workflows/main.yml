@@ -1,5 +1,4 @@
 name: CI/CD with Versioning with Sonar scan
-
 on:
   push:
     branches: 
